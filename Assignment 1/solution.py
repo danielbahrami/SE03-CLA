@@ -5,8 +5,10 @@ import numpy as np
 # Function to obtain the index of the row with the maximum absolute
 # value (in the column col
 def index_of_max_abs(A, row, col):
-
-    # TODO: Implement the function here
+    idx_max = row
+    for i in range(row + 1, len(A)):
+        if abs(A[i][col]) > abs(A[idx_max][col]):
+            idx_max = i
     
     return idx_max
 
@@ -14,9 +16,10 @@ def index_of_max_abs(A, row, col):
 # matrix is passed by reference the it will be changed after calling
 # the function, i.e.  no need to return a new matrix
 def swap_rows(A, row1, row2):
-
-    # TODO: Implement the function here
-
+    temp = np.copy(A[row1])
+    A[row1] = A[row2]
+    A[row2] = temp
+    return A
 
 # Implementation of the Gauss-Jordan elimination algorithm for inverse
 # calculation
@@ -32,7 +35,38 @@ def inverse(A):
     # Number of columns of matrix tildeA (it should be 2*n)
     n = tildeA.shape[1]
 
-    # TODO: Implement your algorithm for inverse calculation here
+    pivot_row = 0
+    pivot_col = 0
+
+    while pivot_row < m and pivot_col < m:
+        idx_max = index_of_max_abs(tildeA, pivot_row, pivot_col)
+        if tildeA[idx_max][pivot_col] == 0:
+            pivot_col = pivot_col + 1
+        else:
+            tildeA = swap_rows(tildeA, pivot_row, idx_max)
+            for i in range(pivot_row + 1, m):
+                a = tildeA[i][pivot_col] / tildeA[pivot_row][pivot_col]
+                tildeA[i][pivot_col] = 0
+                for j in range(pivot_col + 1, n):
+                    tildeA[i][j] = tildeA[i][j] - a * tildeA[pivot_row][j]
+            pivot_row = pivot_row + 1
+            pivot_col = pivot_col + 1
+
+    pivot = m - 1
+
+    while pivot >= 0:
+        if abs(tildeA[pivot][pivot]) < 0.000001:
+            raise Exception("Error, Singular Matrix")
+        else:
+            for i in range(pivot - 1, -1, -1):
+                a = tildeA[i][pivot] / tildeA[pivot][pivot]
+                tildeA[i][pivot] = 0
+                for j in range(pivot + 1, n):
+                    tildeA[i][j] = tildeA[i][j] - a * tildeA[pivot][j]
+            a = 1 / tildeA[pivot][pivot]
+            for j in range(1, n):
+                tildeA[pivot][j] = a * tildeA[pivot][j]
+            pivot = pivot - 1
 
     # Extract the inverse matrix from the matrix tildeA
     InvA = tildeA[:,m:]
