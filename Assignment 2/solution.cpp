@@ -12,14 +12,16 @@ double centralDifferences(double x, double h = 0.000001) {
     return (f(x + h) - f(x - h)) / 2 * h;
 }
 
-void gradientDescent(double x, double epsilon = 0.000001, double iterMax = 10000, double alpha = 0.000001) {
+double gradientDescent(double x, double e = 0.000001, double iterMax = 10000, double a = 0.000001) {
     double count = 0;
-    while (centralDifferences(x) > epsilon && count < iterMax) {
-        x = x - alpha * centralDifferences(x);
-        count = count + 1;
+    while (centralDifferences(x) > e && count < iterMax) {
+        x = x - a * centralDifferences(x);
+        count++;
     }
+    return x;
 }
 
 int main() {
+    cout << gradientDescent(1) << endl;
     return 0;
 }
