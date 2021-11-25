@@ -4,17 +4,16 @@
 using namespace std;
 
 double f(double x) {
-    double e = 2.71828;
-    return pow(-20 * e, -(pow(x, 2) / 8)) - (pow(e, (0.5 * cos(2 * M_PI * x))) + 20 + e);
+    return -20 * pow(M_E, -(pow(x, 2) / 8)) - pow(M_E, (0.5 * cos(2 * M_PI * x))) + 20 + M_E;
 }
 
-double centralDifferences(double x, double h = 0.000001) {
-    return (f(x + h) - f(x - h)) / 2 * h;
+double centralDifferences(double x, double h = 0.001) {
+    return (f(x + h) - f(x - h)) / (2 * h);
 }
 
-double gradientDescent(double x, double e = 0.000001, double iterMax = 10000, double a = 0.000001) {
+double gradientDescent(double x, double e = 0.001, double iterMax = 100000, double a = 0.001) {
     double count = 0;
-    while (centralDifferences(x) > e && count < iterMax) {
+    while (fabs(centralDifferences(x)) > e && count < iterMax) {
         x = x - a * centralDifferences(x);
         count++;
     }
