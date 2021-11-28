@@ -17,7 +17,7 @@ double gradientDescent(double x) {
     double e = 0.0001;
     double iterMax = 100000;
     double count = 0;
-    while (abs(centralDifferences(x)) > e && count < iterMax) {
+    while (fabs(centralDifferences(x)) > e && count < iterMax) {
         x = x - a * centralDifferences(x);
         count++;
     }
@@ -25,6 +25,6 @@ double gradientDescent(double x) {
 }
 
 int main() {
-    cout << gradientDescent(1.0) << endl;
+    cout << gradientDescent(1) << endl;
     return 0;
 }
