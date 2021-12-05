@@ -10,6 +10,19 @@ double centralDifferences(double x) {
     return (f(x + h) - f(x - h)) / (2 * h);
 }
 
+std::string secondDerivative(double x) {
+    double h = 0.0001;
+    double extrema = (f(x + 2 * h) - (2 * f(x)) + (f(x - 2 * h))) / (4 * pow(h, 2));
+    if (extrema > 0) {
+        std::cout << extrema << std::endl;
+        return "Minimum";
+    } else if (extrema < 0) {
+        std::cout << extrema << std::endl;
+        return "Maximum";
+    }
+    return "";
+}
+
 double gradientDescent(double x) {
     double a = 0.0001;
     double e = 0.0001;
@@ -23,6 +36,7 @@ double gradientDescent(double x) {
 }
 
 int main() {
-    std::cout << gradientDescent(1) << std::endl;
+    std::cout << secondDerivative(1) << std::endl;
+    std::cout << std::fixed << gradientDescent(1) << std::endl;
     return 0;
 }
