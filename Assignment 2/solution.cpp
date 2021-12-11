@@ -15,11 +15,11 @@ double secondDerivative(double x) {
     return (f(x + 2 * h) - (2 * f(x)) + (f(x - 2 * h))) / (4 * pow(h, 2));
 }
 
-void extrema(double x) {
-    double extrema = secondDerivative(x);
-    if (extrema > 0) {
+void extremum(double x) {
+    double extremum = secondDerivative(x);
+    if (extremum > 0) {
         std::cout << "Minimum" << std::endl;
-    } else if (extrema < 0) {
+    } else if (extremum < 0) {
         std::cout << "Maximum" << std::endl;
     }
 }
@@ -38,6 +38,6 @@ double gradientDescent(double x) {
 int main() {
     std::cout << gradientDescent(1) << std::endl;
     double result = gradientDescent(1);
-    extrema(result);
+    extremum(result);
     return 0;
 }
