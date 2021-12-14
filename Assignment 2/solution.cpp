@@ -16,18 +16,17 @@ double secondDerivative(double x) {
 }
 
 void extremum(double x) {
-    double extremum = secondDerivative(x);
-    if (extremum > 0) {
+    if (secondDerivative(x) > 0) {
         std::cout << "Minimum" << std::endl;
-    } else if (extremum < 0) {
+    } else if (secondDerivative(x) < 0) {
         std::cout << "Maximum" << std::endl;
     }
 }
 
 double gradientDescent(double x) {
     double e = 0.0001;
-    double iterMax = 100000;
     double count = 0;
+    double iterMax = 10000;
     while (fabs(firstDerivative(x)) > e && count < iterMax) {
         x = x - (1 / secondDerivative(x)) * firstDerivative(x);
         count++;
@@ -36,8 +35,7 @@ double gradientDescent(double x) {
 }
 
 int main() {
-    std::cout << gradientDescent(1) << std::endl;
-    double result = gradientDescent(1);
-    extremum(result);
+    std::cout << std::fixed << gradientDescent(1) << std::endl;
+    extremum(gradientDescent(1));
     return 0;
 }
