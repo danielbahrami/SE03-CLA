@@ -37,5 +37,9 @@ double gradientDescent(double x) {
 int main() {
     std::cout << std::fixed << gradientDescent(1) << std::endl;
     extremum(gradientDescent(1));
+    std::cout << std::fixed << gradientDescent(2) << std::endl;
+    extremum(gradientDescent(2));
+    std::cout << std::fixed << gradientDescent(3) << std::endl;
+    extremum(gradientDescent(3));
     return 0;
 }
